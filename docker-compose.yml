@@ -1,0 +1,60 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    command: "bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - ".:/app"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - redis
+      - elasticsearch
+    environment:
+      DB_USER: user
+      DB_PASSWORD: 'p@ssw0rd123456'
+      DB_NAME: chatu
+      DB_HOST: db
+      DB_PORT: 3306
+      REDIS_URL: redis://redis:6379/0
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      RAILS_ENV: development
+      SECRET_KEY_BASE: secret_key
+    networks: 
+      - shared_network
+
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'p@ssw0rd123456'
+      MYSQL_DATABASE: chatu
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 'p@ssw0rd123456'
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - shared_network
+  
+  redis:
+    image: redis:latest
+    networks:
+      - shared_network
+  
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.0
+    environment:
+      - discovery.type=single-node
+    networks:
+      - shared_network
+
+networks:
+  shared_network:
+    driver: bridge
+
+volumes:
+  db_data:
+    driver: local
