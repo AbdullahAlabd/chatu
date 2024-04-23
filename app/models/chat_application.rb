@@ -1,6 +1,7 @@
 class ChatApplication < ApplicationRecord
   before_create :set_token
   default_scope { where(deleted_at: nil) }
+  has_many :chats
 
   def destroy
     soft_delete!

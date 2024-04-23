@@ -41,6 +41,9 @@ services:
   
   redis:
     image: redis:latest
+    command: redis-server --appendonly yes --appendfsync always
+    volumes:
+      - redis_data:/data
     networks:
       - shared_network
   
@@ -57,4 +60,6 @@ networks:
 
 volumes:
   db_data:
+    driver: local
+  redis_data:
     driver: local
