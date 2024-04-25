@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :messages, param: :message_number, path: 'applications/:token/chats/:number/messages', constraints: { message_number: /\d+/ }
   resources :chats, param: :number, path: 'applications/:token/chats', constraints: { number: /\d+/ }
   resources :chat_applications, path: 'applications', param: :token
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

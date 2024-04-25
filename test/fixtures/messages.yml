@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  chat: one
+  content: MyText
+  number: 1
+  deleted_at: 2024-04-25 08:42:03
+
+two:
+  chat: two
+  content: MyText
+  number: 1
+  deleted_at: 2024-04-25 08:42:03
