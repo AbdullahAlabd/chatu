@@ -1,7 +1,7 @@
 class Chat < ApplicationRecord
   belongs_to :chat_application
   has_many :messages
-  validates :number, numericality: { greater_than: 0 }
+  validates :chat_number, numericality: { greater_than: 0 }
   default_scope { where(deleted_at: nil) }
 
   def destroy
@@ -10,7 +10,7 @@ class Chat < ApplicationRecord
 
   def as_custom_json
     {
-      number:,
+      chat_number:,
       name:,
       messages_count:
     }
