@@ -9,7 +9,7 @@ class Message < ApplicationRecord
 
   def as_custom_json
     {
-      number:,
+      message_number:,
       content:
     }
   end
