@@ -1,5 +1,5 @@
 class ChatApplication < ApplicationRecord
-  before_create :set_token
+  before_create :set_application_token
   default_scope { where(deleted_at: nil) }
   has_many :chats
 
@@ -9,7 +9,7 @@ class ChatApplication < ApplicationRecord
 
   def as_custom_json
     {
-      token:,
+      application_token:,
       name:,
       chats_count:
     }
@@ -21,10 +21,10 @@ class ChatApplication < ApplicationRecord
     update!(deleted_at: Time.current)
   end
 
-  def set_token
+  def set_application_token
     loop do
-      self.token = SecureRandom.uuid
-      break unless self.class.exists?(token:)
+      self.application_token = SecureRandom.uuid
+      break unless self.class.exists?(application_token:)
     end
   end
 end
